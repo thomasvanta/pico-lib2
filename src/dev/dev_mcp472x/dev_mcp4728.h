@@ -33,11 +33,22 @@
 
 #include "sys_i2c.h"
 
+/*! MCP4728 Address:
+    @enum MCP4728_ADDR0 Address 0 (0x60) default
+    @enum MCP4728_ADDR1 Address 1 (0x61) ?? needs to be configured
+    @n
+ */
+enum
+{
+    MCP4728_ADDR0 = 0x60,
+    MCP4728_ADDR1,
+};
+
 /*! MCP4728 Channel:
     @enum MCP4728_CHA Channel A
-    @enum MCP4728_CHA Channel B
-    @enum MCP4728_CHA Channel C
-    @enum MCP4728_CHA Channel D
+    @enum MCP4728_CHB Channel B
+    @enum MCP4728_CHC Channel C
+    @enum MCP4728_CHD Channel D
     @n
  */
 enum
@@ -95,42 +106,43 @@ enum
 
 /*! @brief - Sets power down for channel (active on set or save to dac)
     @brief Default power down is MCP4728_PD_OFF
-    @param ch DAC channel MCP4728_CHAx
+    @param ch DAC channel MCP4728_CHx
     @param pd Power down settings MCP4728_PD_xxx
 */
 void dev_mcp4728_pd(uint8_t ch, uint8_t pd);
 
 /*! @brief - Sets Vref for channel (active on set or save to dac)
     @brief Default Vref is MCP4728_VREF_INT
-    @param ch DAC channel MCP4728_CHAx
+    @param ch DAC channel MCP4728_CHx
     @param vref Vref settings MCP4728_VREF_XX
 */
 void dev_mcp4728_vref(uint8_t ch, uint8_t vref);
 
 /*! @brief - Sets gain for channel (active on set or save to dac)
     @brief Default gain is MCP4728_GAIN2
-    @param ch DAC channel MCP4728_CHAx
+    @param ch DAC channel MCP4728_CHx
     @param vref Gain settings MCP4728_GAINn
 */
 void dev_mcp4728_gain(uint8_t ch, uint8_t gain);
 
 /*! @brief - Sets adc output
     @param i2c I2C channel i2c0 or i2c1
-    @param ch DAC channel MCP4728_CHAx
+    @param ch DAC channel MCP4728_CHx
     @param value Output value for for channnel (0..4095)
     @return true
     @return[error] false
 */
-bool dev_mcp4728_set(i2c_inst_t* i2c, uint8_t ch, uint16_t value);
+bool dev_mcp4728_set(i2c_inst_t* i2c, uint8_t addr, uint8_t ch, uint16_t value);
 
 /*! @brief - Sets adc output and save settings to EEPROM (50ms)
     @param i2c I2C channel i2c0 or i2c1
-    @param ch DAC channel MCP4728_CHAx
+    @param addr DAC address MCP4728_ADDRx
+    @param ch DAC channel MCP4728_CHx
     @param value Output value for for channnel (0..4095)
     @return true
     @return[error] false
 */
-bool dev_mcp4728_save(i2c_inst_t* i2c, uint8_t ch, uint16_t value);
+bool dev_mcp4728_save(i2c_inst_t* i2c, uint8_t addr, uint8_t ch, uint16_t value);
 
 #ifdef __cplusplus
  }

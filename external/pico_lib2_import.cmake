@@ -27,7 +27,7 @@ if (NOT PICO_LIB2_PATH)
         endif ()
         FetchContent_Declare(
                 PICO_LIB2
-                GIT_REPOSITORY https://github.com/iiot2k/pico-lib2
+                GIT_REPOSITORY https://github.com/thomasvanta/pico-lib2
                 GIT_TAG master
         )
         if (NOT PICO_LIB2)

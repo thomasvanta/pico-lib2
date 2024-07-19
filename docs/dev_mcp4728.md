@@ -13,9 +13,9 @@ Maximum output voltage is 3.3V. <br>
 ######  <br>
 MCP4728 Channel: <br>
 🔢Enum:  ***MCP4728_CHA*** Channel A <br>
-🔢Enum:  ***MCP4728_CHA*** Channel B <br>
-🔢Enum:  ***MCP4728_CHA*** Channel C <br>
-🔢Enum:  ***MCP4728_CHA*** Channel D <br>
+🔢Enum:  ***MCP4728_CHB*** Channel B <br>
+🔢Enum:  ***MCP4728_CHC*** Channel C <br>
+🔢Enum:  ***MCP4728_CHD*** Channel D <br>
 ######  <br>
 MCP4728 Gain: <br>
 🔢Enum:  ***MCP4728_GAIN1*** Gain x 1 <br>
@@ -38,7 +38,7 @@ MCP4728 Power Down: <br>
 ```c 
 void dev_mcp4728_pd(uint8_t ch, uint8_t pd)
 ```
-- ▶️Param:  ***ch*** DAC channel MCP4728_CHAx <br>
+- ▶️Param:  ***ch*** DAC channel MCP4728_CHx <br>
 - ▶️Param:  ***pd*** Power down settings MCP4728_PD_xxx <br>
 
 #### 💠Function:  ***dev_mcp4728_vref*** - Sets Vref for channel (active on set or save to dac)
@@ -46,7 +46,7 @@ void dev_mcp4728_pd(uint8_t ch, uint8_t pd)
 ```c 
 void dev_mcp4728_vref(uint8_t ch, uint8_t vref)
 ```
-- ▶️Param:  ***ch*** DAC channel MCP4728_CHAx <br>
+- ▶️Param:  ***ch*** DAC channel MCP4728_CHx <br>
 - ▶️Param:  ***vref*** Vref settings MCP4728_VREF_XX <br>
 
 #### 💠Function:  ***dev_mcp4728_gain*** - Sets gain for channel (active on set or save to dac)
@@ -54,7 +54,7 @@ void dev_mcp4728_vref(uint8_t ch, uint8_t vref)
 ```c 
 void dev_mcp4728_gain(uint8_t ch, uint8_t gain)
 ```
-- ▶️Param:  ***ch*** DAC channel MCP4728_CHAx <br>
+- ▶️Param:  ***ch*** DAC channel MCP4728_CHx <br>
 - ▶️Param:  ***vref*** Gain settings MCP4728_GAINn <br>
 
 #### 💠Function:  ***dev_mcp4728_set*** - Sets adc output
@@ -62,7 +62,7 @@ void dev_mcp4728_gain(uint8_t ch, uint8_t gain)
 bool dev_mcp4728_set(i2c_inst_t* i2c, uint8_t ch, uint16_t value)
 ```
 - ▶️Param:  ***i2c*** I2C channel i2c0 or i2c1 <br>
-- ▶️Param:  ***ch*** DAC channel MCP4728_CHAx <br>
+- ▶️Param:  ***ch*** DAC channel MCP4728_CHx <br>
 - ▶️Param:  ***value*** Output value for for channnel (0..4095) <br>
 - ✅Return: true <br>
 - ❌Error Return: false <br>
@@ -72,7 +72,7 @@ bool dev_mcp4728_set(i2c_inst_t* i2c, uint8_t ch, uint16_t value)
 bool dev_mcp4728_save(i2c_inst_t* i2c, uint8_t ch, uint16_t value)
 ```
 - ▶️Param:  ***i2c*** I2C channel i2c0 or i2c1 <br>
-- ▶️Param:  ***ch*** DAC channel MCP4728_CHAx <br>
+- ▶️Param:  ***ch*** DAC channel MCP4728_CHx <br>
 - ▶️Param:  ***value*** Output value for for channnel (0..4095) <br>
 - ✅Return: true <br>
 - ❌Error Return: false <br>

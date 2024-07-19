@@ -3,7 +3,7 @@
 
 #include "dev_mcp4728.h"
 
-#define MCP4728_ADDR 0x60
+//#define MCP4728_ADDR 0x60
 #define MULTIWRITE   0x40
 #define SINGLEWRITE  0x58
 
@@ -35,7 +35,7 @@ void dev_mcp4728_gain(uint8_t ch, uint8_t gain)
 	dac_gain[ch] = gain;
 }
 
-static bool mcp4728_write(i2c_inst_t* i2c, uint8_t cmd, uint8_t ch, uint16_t value)
+static bool mcp4728_write(i2c_inst_t* i2c, uint8_t addr, uint8_t cmd, uint8_t ch, uint16_t value)
 {
 	if (ch >= MCP4728_CH_NUM)
 		return false;
@@ -50,15 +50,15 @@ static bool mcp4728_write(i2c_inst_t* i2c, uint8_t cmd, uint8_t ch, uint16_t val
 	buffer[2] = value & 0xFF;
 
 	// set channel dac
-    return (sys_i2c_wbuf(i2c, MCP4728_ADDR, buffer, sizeof(buffer)) == sizeof(buffer));
+    return (sys_i2c_wbuf(i2c, addr, buffer, sizeof(buffer)) == sizeof(buffer));
 }
 
-bool dev_mcp4728_set(i2c_inst_t* i2c, uint8_t ch, uint16_t value)
+bool dev_mcp4728_set(i2c_inst_t* i2c, uint8_t addr, uint8_t ch, uint16_t value)
 {
-	return mcp4728_write(i2c, MULTIWRITE, ch, value);
+	return mcp4728_write(i2c, addr, MULTIWRITE, ch, value);
 }
 
-bool dev_mcp4728_save(i2c_inst_t* i2c, uint8_t ch, uint16_t value)
+bool dev_mcp4728_save(i2c_inst_t* i2c, uint8_t addr, uint8_t ch, uint16_t value)
 {
-	return mcp4728_write(i2c, SINGLEWRITE, ch, value);
+	return mcp4728_write(i2c, addr, SINGLEWRITE, ch, value);
 }
