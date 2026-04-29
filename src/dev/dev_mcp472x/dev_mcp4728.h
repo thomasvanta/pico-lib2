@@ -11,7 +11,7 @@
 
 /*! $## **Description:**
     The MCP4728 is a 12-bit digital to analog converter with four outputs.
-    The chip can connected direct to Pico with supply voltage 3.3V.
+    The chip can be connected direct to Pico with supply voltage 3.3V.
     Maximum output voltage is 3.3V.
     @n
 */
@@ -106,27 +106,31 @@ enum
 
 /*! @brief - Sets power down for channel (active on set or save to dac)
     @brief Default power down is MCP4728_PD_OFF
+    @param addr DAC address MCP4728_ADDRx
     @param ch DAC channel MCP4728_CHx
     @param pd Power down settings MCP4728_PD_xxx
 */
-void dev_mcp4728_pd(uint8_t ch, uint8_t pd);
+void dev_mcp4728_pd(uint8_t addr, uint8_t ch, uint8_t pd);
 
 /*! @brief - Sets Vref for channel (active on set or save to dac)
     @brief Default Vref is MCP4728_VREF_INT
+    @param addr DAC address MCP4728_ADDRx
     @param ch DAC channel MCP4728_CHx
     @param vref Vref settings MCP4728_VREF_XX
 */
-void dev_mcp4728_vref(uint8_t ch, uint8_t vref);
+void dev_mcp4728_vref(uint8_t addr, uint8_t ch, uint8_t vref);
 
 /*! @brief - Sets gain for channel (active on set or save to dac)
     @brief Default gain is MCP4728_GAIN2
+    @param addr DAC address MCP4728_ADDRx
     @param ch DAC channel MCP4728_CHx
-    @param vref Gain settings MCP4728_GAINn
+    @param gain Gain settings MCP4728_GAIN
 */
-void dev_mcp4728_gain(uint8_t ch, uint8_t gain);
+void dev_mcp4728_gain(uint8_t addr, uint8_t ch, uint8_t gain);
 
 /*! @brief - Sets adc output
     @param i2c I2C channel i2c0 or i2c1
+    @param addr DAC address MCP4728_ADDRx
     @param ch DAC channel MCP4728_CHx
     @param value Output value for for channnel (0..4095)
     @return true
@@ -143,6 +147,8 @@ bool dev_mcp4728_set(i2c_inst_t* i2c, uint8_t addr, uint8_t ch, uint16_t value);
     @return[error] false
 */
 bool dev_mcp4728_save(i2c_inst_t* i2c, uint8_t addr, uint8_t ch, uint16_t value);
+
+bool dev_mcp4728_write_fast(i2c_inst_t *i2c, uint8_t addr, uint16_t value0, uint16_t value1, uint16_t value2, uint16_t value3);
 
 #ifdef __cplusplus
  }

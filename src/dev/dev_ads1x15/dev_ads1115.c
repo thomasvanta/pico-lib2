@@ -22,13 +22,13 @@ bool dev_ads1115_read_ex(i2c_inst_t* i2c, uint8_t addr, uint8_t channel, uint8_t
     {
         struct
         {
-            uint16_t cq:  2; // comparator queue
-            uint16_t cl:  1; // comparator latch
+            uint16_t cq:  2; // comparator queue  3 = assert after 4 conversions
+            uint16_t cl:  1; // comparator latch  0 = non latched
             uint16_t cp:  1; // comparator polarity
-            uint16_t cm:  1; // comparator mode
-            uint16_t dr:  3; // data rate
-            uint16_t mod: 1; // mode  1 = One shot
-            uint16_t pga: 3; // gain
+            uint16_t cm:  1; // comparator mode  0 = traditional, 1 = window
+            uint16_t dr:  3; // data rate  0 = 8sps, 1 = 16 ... 7 = 860sps
+            uint16_t mod: 1; // mode  1 = One shot, 0 = continous
+            uint16_t pga: 3; // gain 
             uint16_t mux: 3; // multiplex
             uint16_t os:  1; // operation 1 = One shot
         };
@@ -40,7 +40,7 @@ bool dev_ads1115_read_ex(i2c_inst_t* i2c, uint8_t addr, uint8_t channel, uint8_t
     ads1115_cfg.mux = mux;
     ads1115_cfg.pga = gain;
     ads1115_cfg.mod = 1;
-    ads1115_cfg.dr = 4; // 128 SPS
+    ads1115_cfg.dr = 4; // 128 SPS is fast and low noise //TODO: check if 250, 475, 860..
     ads1115_cfg.cq = 3;
 
     // start conversion
@@ -48,7 +48,7 @@ bool dev_ads1115_read_ex(i2c_inst_t* i2c, uint8_t addr, uint8_t channel, uint8_t
         return false;
     
     // wait for finish conversion
-    sys_delay_ms(10);
+    sys_delay_ms(10); //at 128 SPS, a conversion takes 7.8125ms, at 860 1.16279 ... (1/DR)
 
 	union
 	{
